@@ -5,7 +5,7 @@ Segment::Segment(string &path, long long file_id) {
     this->file_id = file_id;
     file.open(path, ios::in | ios::binary | ios::app | ios::out);
     //in for reading, out for writing, binary to treat the file as a raw bytes,app for append
-    if (file.is_open()) {
+    if (!file.is_open()) {
         throw runtime_error("File open error");
     }
 }
@@ -28,4 +28,12 @@ ll Segment::write(string &key, string &value, ll timestamp) {
     file.write(key.data(),keySize);
     file.flush();
     return offset;
+}
+
+string Segment::read(long long offset, long long valueSize) {
+    ll val_offset=offset+3*sizeof(ll);
+    file.seekg(val_offset,ios::beg);
+    string value(valueSize,'\0');
+    file.read(value.data(),valueSize);
+    return value;
 }
