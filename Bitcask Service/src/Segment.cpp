@@ -1,0 +1,31 @@
+#include "../include/Segment.h"
+
+Segment::Segment(string &path, long long file_id) {
+    this->path = path;
+    this->file_id = file_id;
+    file.open(path, ios::in | ios::binary | ios::app | ios::out);
+    //in for reading, out for writing, binary to treat the file as a raw bytes,app for append
+    if (file.is_open()) {
+        throw runtime_error("File open error");
+    }
+}
+
+Segment::~Segment() {
+    if (file.is_open()) {
+        file.close();
+    }
+}
+
+ll Segment::write(string &key, string &value, ll timestamp) {
+    file.seekp(0,ios::end);//move the pointer to the end of the file by 0 bytes
+    ll offset = file.tellp();
+    ll keySize =key.size();
+    ll valueSize =value.size();
+    file.write((char*)&(keySize),sizeof(ll));
+    file.write((char*)&(valueSize),sizeof(ll));
+    file.write((char *)&timestamp,sizeof(ll));
+    file.write(value.data(),valueSize);
+    file.write(key.data(),keySize);
+    file.flush();
+    return offset;
+}

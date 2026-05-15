@@ -25,6 +25,10 @@ class Segment {
 
     public:
     Segment (string &path,ll file_id);
-    int write (string&key,string &value,ll timestamp);
-    string read(string &key,ll offset);
+
+    ~Segment();
+    ll write (string&key,string &value,ll timestamp);
+    string read(ll offset,ll valueSize);
+    void iterate();
+    ll size();
 };

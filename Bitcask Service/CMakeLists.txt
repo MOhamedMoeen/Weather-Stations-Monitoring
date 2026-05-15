@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Bitcask_Service main.cpp
         include/Segment.h
-        main.cpp)
+        main.cpp
+        src/Segment.cpp)
