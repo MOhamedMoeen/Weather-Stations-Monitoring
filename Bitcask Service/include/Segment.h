@@ -29,6 +29,6 @@ class Segment {
     ~Segment();
     ll write (string&key,string &value,ll timestamp);
     string read(ll offset,ll valueSize);
-    void iterate();
     ll size();
+    vector<pair<Record,ll>> iterate();
 };

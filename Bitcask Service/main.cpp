@@ -11,5 +11,7 @@ int main() {
     //
     // cout << "Offset = " << offset << endl;
 
-    cout << seg.read(33, 5) << endl;
+    for (auto [rec,off] : seg.iterate()) {
+        cout << off << " " <<rec.key<<" "<<rec.value << endl;
+    }
 }

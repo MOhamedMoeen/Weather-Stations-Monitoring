@@ -37,3 +37,31 @@ string Segment::read(long long offset, long long valueSize) {
     file.read(value.data(),valueSize);
     return value;
 }
+
+vector<pair<Record, long long> > Segment::iterate() {
+    vector<pair<Record, long long> > result;
+    file.seekg(0,ios::beg);
+    while(!file.eof()) {
+        ll offset=file.tellg();
+        Record record;
+        file.read((char*)&record.keySize,sizeof(ll));
+        file.read((char*)&record.valueSize,sizeof(ll));
+        file.read((char*)&record.timestamp,sizeof(ll));
+        record.value.resize(record.valueSize);
+        file.read(record.value.data(),record.valueSize);
+        record.key.resize(record.keySize);
+        file.read(record.key.data(),record.keySize);
+        if (file.fail())
+            break;
+        result.push_back({record,offset});
+
+    }
+    file.clear();
+    return result;
+}
+ll Segment::size() {
+
+    file.seekg(0, ios::end);
+
+    return file.tellg();
+}
