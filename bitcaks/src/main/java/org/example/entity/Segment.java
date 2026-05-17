@@ -18,7 +18,7 @@ public class Segment implements AutoCloseable{
     public Segment(String path, int fileId)throws IOException {
         this.path = path;
         this.fileId = fileId;
-        this.file = new RandomAccessFile(path,"wr");
+        this.file = new RandomAccessFile(path,"rw");
     }
 
     @Override
