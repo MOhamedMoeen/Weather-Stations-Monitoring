@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="" />
+    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bitcask Service/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Bitcask Service/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Segment.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="12" />
+    <option name="cachedIndexableFilesCount" value="14" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -16,6 +31,65 @@
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="2.703943926014109E-13" />
+      <entry key="MS500" value="0.0030647819589539847" />
+      <entry key="S2" value="0.239540537800821" />
+      <entry key="S5" value="0.6815333832782695" />
+      <entry key="S10" value="1.2688778198933324" />
+      <entry key="S30" value="3.798276580584071" />
+      <entry key="S60" value="7.2180441602283665" />
+      <entry key="M2" value="11.338090614218427" />
+      <entry key="M5" value="19.5978749852356" />
+      <entry key="M10" value="34.745810984182974" />
+      <entry key="M15" value="48.81882173725852" />
+      <entry key="M30" value="80.65477173228324" />
+      <entry key="H1" value="113.6853003554297" />
+      <entry key="H2" value="138.84871308327578" />
+      <entry key="H4" value="154.59745466397538" />
+      <entry key="D1" value="169.72814419947454" />
+      <entry key="W1" value="172.52728550207027" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0000833341919708" />
+      <entry key="S5" value="1.0297255290932104" />
+      <entry key="S10" value="1.234348303037998" />
+      <entry key="S30" value="2.1072633234613223" />
+      <entry key="S60" value="3.0244973047799375" />
+      <entry key="M2" value="4.160713035769255" />
+      <entry key="M5" value="8.452659593138915" />
+      <entry key="M10" value="18.90696957957366" />
+      <entry key="M15" value="28.084902296886415" />
+      <entry key="M30" value="44.77667435345929" />
+      <entry key="H1" value="58.13518069612784" />
+      <entry key="H2" value="66.73291083817898" />
+      <entry key="H4" value="71.6354285494505" />
+      <entry key="D1" value="76.07168761219252" />
+      <entry key="W1" value="76.86651645183926" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.0010760792147232671" />
+      <entry key="MS500" value="0.25532685806107625" />
+      <entry key="S2" value="0.8578337784380998" />
+      <entry key="S5" value="1.4697657619175368" />
+      <entry key="S10" value="2.3274831028252705" />
+      <entry key="S30" value="5.776756157024784" />
+      <entry key="S60" value="10.133085522942356" />
+      <entry key="M2" value="15.416912589399654" />
+      <entry key="M5" value="27.99143264875511" />
+      <entry key="M10" value="53.59688751009391" />
+      <entry key="M15" value="76.85188893044722" />
+      <entry key="M30" value="125.39275983834725" />
+      <entry key="H1" value="171.79618739614958" />
+      <entry key="H2" value="205.567914316112" />
+      <entry key="H4" value="226.2255876458201" />
+      <entry key="D1" value="245.79854988052008" />
+      <entry key="W1" value="249.39361713806886" />
+    </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7,
@@ -26,32 +100,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "bitcask-implementation",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/mohamedmoeen/Weather-Stations-Monitoring/bitcaks",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;bitcask-implementation&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/mohamedmoeen/Weather-Stations-Monitoring/bitcaks&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion.inline&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -68,11 +144,17 @@
       <option name="presentableId" value="Default" />
       <updated>1779054555420</updated>
       <workItem from="1779054556483" duration="29000" />
-      <workItem from="1779057291541" duration="299000" />
+      <workItem from="1779057291541" duration="2902000" />
+      <workItem from="1779060212908" duration="188000" />
+      <workItem from="1779060447205" duration="1784000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

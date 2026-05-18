@@ -12,10 +12,10 @@ import java.util.List;
 //is a Java interface that allows an object to be closed automatically when used inside try
 public class Segment implements AutoCloseable{
     private final String path;
-    private final int fileId;
+    private final long fileId;
     private final RandomAccessFile file;
 
-    public Segment(String path, int fileId)throws IOException {
+    public Segment(String path, long fileId)throws IOException {
         this.path = path;
         this.fileId = fileId;
         this.file = new RandomAccessFile(path,"rw");
