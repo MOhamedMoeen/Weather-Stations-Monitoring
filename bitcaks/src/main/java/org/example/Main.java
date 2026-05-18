@@ -1,114 +1,92 @@
 package org.example;
 
-import org.example.entity.RecordOffset;
-import org.example.entity.Segment;
+import org.example.entity.Bitcask;
 
-import java.util.List;
+import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
 
         try (
-                Segment segment =
-                        new Segment(
-                                "segment.data",
-                                1
-                        )
+                Bitcask db =
+                        new Bitcask("data")
         ) {
 
             // =========================
-            // WRITE TEST
+            // PUT TEST
             // =========================
 
-            long offset1 =
-                    segment.write(
-                            "name",
-                            "pedri",
-                            System.currentTimeMillis()
-                    );
+            db.put("station_1", "25C");
+            db.put("station_2", "31C");
+            db.put("station_3", "18C");
 
-            long offset2 =
-                    segment.write(
-                            "database",
-                            "bitcask",
-                            System.currentTimeMillis()
-                    );
+            // overwrite existing key
+            db.put("station_1", "27C");
 
             System.out.println(
-                    "First record offset: "
-                            + offset1
-            );
-
-            System.out.println(
-                    "Second record offset: "
-                            + offset2
+                    "Data inserted successfully.\n"
             );
 
             // =========================
-            // DIRECT READ TEST
+            // GET TEST
             // =========================
 
             String value =
-                    segment.read(
-                            offset1,
-                            "pedri"
-                                    .getBytes()
-                                    .length
-                    );
+                    db.get("station_1");
 
             System.out.println(
-                    "\nRead value from offset:"
+                    "station_1 -> "
+                            + value
             );
 
-            System.out.println(value);
+            // =========================
+            // GET NON-EXISTING KEY
+            // =========================
+
+            String missing =
+                    db.get("unknown");
+
+            System.out.println(
+                    "unknown -> "
+                            + missing
+            );
 
             // =========================
-            // ITERATION TEST
+            // VIEW ALL TEST
             // =========================
 
             System.out.println(
-                    "\nIterating records:\n"
+                    "\nAll latest records:\n"
             );
 
-            List<RecordOffset> records =
-                    segment.iterate();
+            Map<String, String> all =
+                    db.getAll();
 
-            for (RecordOffset ro : records) {
-
-                System.out.println(
-                        "Offset: "
-                                + ro.offset
-                );
+            for (Map.Entry<String, String> entry
+                    : all.entrySet()) {
 
                 System.out.println(
-                        "Key: "
-                                + ro.record.key
-                );
-
-                System.out.println(
-                        "Value: "
-                                + ro.record.value
-                );
-
-                System.out.println(
-                        "Timestamp: "
-                                + ro.record.timestamp
-                );
-
-                System.out.println(
-                        "-------------------"
+                        entry.getKey()
+                                + " -> "
+                                + entry.getValue()
                 );
             }
 
             // =========================
-            // FILE SIZE TEST
+            // RESTART RECOVERY TEST
             // =========================
 
             System.out.println(
-                    "\nSegment size: "
-                            + segment.size()
-                            + " bytes"
+                    "\nNow stop the program and run again."
+            );
+
+            System.out.println(
+                    "If values still exist,"
+            );
+
+            System.out.println(
+                    "then recovery works correctly."
             );
 
         } catch (Exception e) {

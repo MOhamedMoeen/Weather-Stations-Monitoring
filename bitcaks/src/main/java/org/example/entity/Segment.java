@@ -15,6 +15,10 @@ public class Segment implements AutoCloseable{
     private final long fileId;
     private final RandomAccessFile file;
 
+    public long getFileId() {
+        return fileId;
+    }
+
     public Segment(String path, long fileId)throws IOException {
         this.path = path;
         this.fileId = fileId;
