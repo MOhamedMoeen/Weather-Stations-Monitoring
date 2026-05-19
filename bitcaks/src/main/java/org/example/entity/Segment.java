@@ -65,8 +65,11 @@ public class Segment implements AutoCloseable{
     }
 
     public List<RecordOffset> iterate() throws IOException {
+       return iterateOffset(0);
+    }
+    public List<RecordOffset> iterateOffset(long last) throws IOException {
         List<RecordOffset> results = new ArrayList<>();
-        file.seek(0);
+        file.seek(last);
         while (file.getFilePointer()<file.length()){
             long offset = file.getFilePointer();
             try {
@@ -91,5 +94,8 @@ public class Segment implements AutoCloseable{
     }
     public long size() throws IOException {
         return file.length();
+    }
+    public HintFile getHintFile() {
+        return hintFile;
     }
 }

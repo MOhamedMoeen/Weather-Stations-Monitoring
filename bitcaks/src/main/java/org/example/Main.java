@@ -2,62 +2,69 @@ package org.example;
 
 import org.example.entity.Bitcask;
 
+import java.io.File;
 import java.util.Map;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        try (
-                Bitcask db =
-                        new Bitcask("data")
-        ) {
+        try {
 
             // =========================
-            // PUT TEST
+            // CLEAN OLD TEST DATA
             // =========================
 
-            db.put("station_1", "25C");
-            db.put("station_2", "31C");
-            db.put("station_3", "18C");
+            File dir = new File("data");
 
-            // overwrite existing key
-            db.put("station_1", "27C");
+            if (dir.exists()) {
+
+                File[] files = dir.listFiles();
+
+                if (files != null) {
+
+                    for (File file : files) {
+
+                        file.delete();
+                    }
+                }
+            }
+
+            // =========================
+            // FIRST RUN
+            // =========================
 
             System.out.println(
-                    "Data inserted successfully.\n"
+                    "========== FIRST RUN ==========\n"
             );
 
-            // =========================
-            // GET TEST
-            // =========================
+            Bitcask db =
+                    new Bitcask("data");
 
-            String value =
-                    db.get("station_1");
+            // create many writes
+            // to test:
+            // - hint files
+            // - recovery
+            // - overwrites
+
+            for (int i = 0; i < 20; i++) {
+
+                db.put(
+                        "stationafsadfsdfsdafsfdsafsdfsdfasdfsdfcsdfvdvdfb_" + i,
+                        "temasdfdsafsafsdafsdafsdfdafsdfdsafvfdvbgfsdbfgasdfgvdsap_" + i
+                );
+            }
+
+            // overwrite test
+            db.put("station_5", "UPDATED");
 
             System.out.println(
-                    "station_1 -> "
-                            + value
+                    "station_5 => "
+                            + db.get("station_5")
             );
 
-            // =========================
-            // GET NON-EXISTING KEY
-            // =========================
-
-            String missing =
-                    db.get("unknown");
-
             System.out.println(
-                    "unknown -> "
-                            + missing
-            );
-
-            // =========================
-            // VIEW ALL TEST
-            // =========================
-
-            System.out.println(
-                    "\nAll latest records:\n"
+                    "\nAll values:\n"
             );
 
             Map<String, String> all =
@@ -73,21 +80,66 @@ public class Main {
                 );
             }
 
+            db.close();
+
             // =========================
-            // RESTART RECOVERY TEST
+            // SECOND RUN
             // =========================
 
             System.out.println(
-                    "\nNow stop the program and run again."
+                    "\n========== RECOVERY RUN ==========\n"
+            );
+
+            Bitcask recovered =
+                    new Bitcask("data");
+
+            System.out.println(
+                    "Recovered station_5 => "
+                            + recovered.get("station_5")
             );
 
             System.out.println(
-                    "If values still exist,"
+                    "\nRecovered values:\n"
             );
 
+            Map<String, String> recoveredAll =
+                    recovered.getAll();
+
+            for (Map.Entry<String, String> entry
+                    : recoveredAll.entrySet()) {
+
+                System.out.println(
+                        entry.getKey()
+                                + " -> "
+                                + entry.getValue()
+                );
+            }
+
+            recovered.close();
+
+            // =========================
+            // SHOW GENERATED FILES
+            // =========================
+
             System.out.println(
-                    "then recovery works correctly."
+                    "\n========== GENERATED FILES ==========\n"
             );
+
+            File[] generated =
+                    dir.listFiles();
+
+            if (generated != null) {
+
+                for (File file : generated) {
+
+                    System.out.println(
+                            file.getName()
+                                    + " | "
+                                    + file.length()
+                                    + " bytes"
+                    );
+                }
+            }
 
         } catch (Exception e) {
 
