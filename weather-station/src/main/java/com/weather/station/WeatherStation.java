@@ -1,29 +1,29 @@
 package com.weather.station;
 
+import com.weather.station.adapter.OpenMeteoAdapter;
+
 public class WeatherStation {
 
     public static void main(String[] args) throws InterruptedException {
-        WeatherStationProducer clientPipeline = new WeatherStationProducer("127.0.0.1:9092", "weather_status");
-        TemporaryMockGenerator dataEngine = new TemporaryMockGenerator();
-        long trackingStationId = 1L;
 
-        System.out.println("Starting weather station array data simulation stream...");
+        long stationId = Long.parseLong(
+                System.getenv().getOrDefault("STATION_ID", "1"));
 
-        for (int iterations = 0; iterations < 60; iterations++) {
-            if (dataEngine.shouldDropMessage()) {
-                System.out.println(">> Network Intercept: Packets dropped programmatically [10% Rule]");
-                Thread.sleep(1000);
-                continue;
+        String kafkaBootstrap = System.getenv().getOrDefault(
+                "KAFKA_BOOTSTRAP_SERVERS", "127.0.0.1:9092");
+
+        // STATION_ID=0 → Open-Meteo adapter (real weather data)
+        // STATION_ID=1-10 → Mock weather station
+        if (stationId == 0) {
+            try {
+                new OpenMeteoAdapter().run();
+            } catch (Exception e) {
+                System.err.println("OpenMeteoAdapter failed: " + e.getMessage());
             }
-
-            String activePayload = dataEngine.generateMockJson(trackingStationId);
-            System.out.println("Emitting Station Status -> " + activePayload);
-
-            clientPipeline.sendData(String.valueOf(trackingStationId), activePayload);
-            Thread.sleep(1000);
+        } else {
+            WeatherStationProducer producer = new WeatherStationProducer(
+                    kafkaBootstrap, "weather_status");
+            new WeatherStationRunner(stationId, producer).run();
         }
-
-        clientPipeline.shutdown();
-        System.out.println("Simulation process concluded successfully.");
     }
 }

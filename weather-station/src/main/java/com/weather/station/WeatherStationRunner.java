@@ -11,8 +11,11 @@ public class WeatherStationRunner {
     private final Gson gson = new Gson();
     private long sNo = 0;
 
-    public WeatherStationRunner(long stationId) {
+    private final WeatherStationProducer producer;
+
+    public WeatherStationRunner(long stationId, WeatherStationProducer producer) {
         this.stationId = stationId;
+        this.producer = producer;
     }
 
     public void run() throws InterruptedException {
@@ -30,7 +33,10 @@ public class WeatherStationRunner {
                     generator.randomBattery(),
                     System.currentTimeMillis() / 1000,
                     generator.randomWeather());
-            System.out.println(gson.toJson(message));
+
+            String json = gson.toJson(message);
+            producer.sendData(String.valueOf(stationId), json);
+            System.out.println(json);
             Thread.sleep(1000);
         }
     }
