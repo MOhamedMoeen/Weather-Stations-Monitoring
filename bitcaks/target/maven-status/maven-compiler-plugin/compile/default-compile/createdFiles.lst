@@ -1,0 +1,9 @@
+org/example/handler/CompactHandler.class
+org/example/entity/RecordOffset.class
+org/example/entity/HintFile.class
+org/example/entity/Bitcask.class
+org/example/BitcaskServer.class
+org/example/entity/Segment.class
+org/example/handler/BitcaskHandler.class
+org/example/entity/KeyDir.class
+org/example/entity/Record.class

@@ -3,5 +3,6 @@
         "src",
         "central-station/src/main/java/com/example"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "automatic"
 }

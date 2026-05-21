@@ -42,7 +42,7 @@ public class ElasticsearchIndexer {
                 AuthScope.ANY,
                 new UsernamePasswordCredentials("elastic", System.getenv("ES_PASSWORD")));
         this.restClient = RestClient
-                .builder(new HttpHost(esHost, esPort, "http"))
+                .builder(new HttpHost(esHost, esPort, "https"))
                 .setHttpClientConfigCallback(
                         new RestClientBuilder.HttpClientConfigCallback() {
                             @Override
