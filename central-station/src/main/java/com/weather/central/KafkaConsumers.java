@@ -60,8 +60,8 @@ public class KafkaConsumers {
         Consumer<String, String> archiveConsumer = createConsumer("archiving-group", "earliest");
 
         // Subscribe to the topic
-        archiveConsumer.subscribe(Collections.singletonList("weather-events"));
-        System.out.println("Subscribed to topic: " + "weather-events");
+        archiveConsumer.subscribe(Collections.singletonList("weather_status"));
+        System.out.println("Subscribed to topic: " + "weather_status");
 
         // Poll for records
         try {
@@ -97,7 +97,8 @@ public class KafkaConsumers {
 
     private static Consumer<String, String> createConsumer(String groupId, String offset) {
         Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                System.getenv().getOrDefault("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"));
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -108,7 +109,7 @@ public class KafkaConsumers {
     }
 
     private static Producer<String, String> createInvalidMessagesProducer() {
-        Properties props = new Properties(  );
+        Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
