@@ -24,7 +24,7 @@ public class WeatherStationRunner {
             sNo++;
             if (generator.shouldDrop()) {
                 System.out.println("[Station " + stationId + "] Message #" + sNo + " dropped.");
-                Thread.sleep(1000);
+                Thread.sleep(100);
                 continue;
             }
             WeatherMessage message = new WeatherMessage(
@@ -37,7 +37,7 @@ public class WeatherStationRunner {
             String json = gson.toJson(message);
             producer.sendData(String.valueOf(stationId), json);
             System.out.println(json);
-            Thread.sleep(1000);
+            Thread.sleep(100);
         }
     }
 }

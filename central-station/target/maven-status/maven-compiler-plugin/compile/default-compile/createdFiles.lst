@@ -1,7 +1,0 @@
-com/weather/central/model/WeatherStatus.class
-com/weather/central/KafkaConsumers$1.class
-com/weather/central/archive/ParquetHandler.class
-com/weather/central/KafkaConsumers.class
-com/weather/central/elasticsearch/ElasticsearchIndexer.class
-com/weather/central/TestProducer.class
-com/weather/central/CentralStation.class

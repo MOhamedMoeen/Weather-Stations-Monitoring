@@ -33,22 +33,11 @@ public class ElasticsearchIndexer {
 
     public ElasticsearchIndexer() {
         this.mapper = new ObjectMapper();
-        // Add credentials
-        BasicCredentialsProvider credsProv = new BasicCredentialsProvider();
-        credsProv.setCredentials(
-                AuthScope.ANY,
-                new UsernamePasswordCredentials("elastic", System.getenv("ES_PASSWORD")));
+
+        String esHost = System.getenv().getOrDefault("ES_HOST", "localhost");
+        int esPort = Integer.parseInt(System.getenv().getOrDefault("ES_PORT", "9200"));
         this.restClient = RestClient
-                .builder(new HttpHost("localhost", 9200, "http"))
-                .setHttpClientConfigCallback(
-                        new RestClientBuilder.HttpClientConfigCallback() {
-                            @Override
-                            public HttpAsyncClientBuilder customizeHttpClient(
-                                    HttpAsyncClientBuilder httpClientBuilder) {
-                                return httpClientBuilder
-                                        .setDefaultCredentialsProvider(credsProv);
-                            }
-                        })
+                .builder(new HttpHost(esHost, esPort, "http"))
                 .build();
         ElasticsearchTransport transport = new RestClientTransport(
                 this.restClient, new JacksonJsonpMapper());
@@ -57,32 +46,30 @@ public class ElasticsearchIndexer {
     }
 
     private void createIndex() {
-    try {
-        boolean exists = esClient.indices()
-            .exists(e -> e.index("weather-statuses"))
-            .value();
+        try {
+            boolean exists = esClient.indices()
+                    .exists(e -> e.index("weather-statuses"))
+                    .value();
 
-        if (!exists) {
-            esClient.indices().create(c -> c
-                .index("weather-statuses")
-                .mappings(m -> m
-                    .properties("station_id",       p -> p.long_(l -> l))
-                    .properties("s_no",             p -> p.long_(l -> l))
-                    .properties("battery_status",   p -> p.keyword(k -> k))
-                    .properties("status_timestamp", p -> p.long_(l -> l))
-                    .properties("humidity",         p -> p.integer(i -> i))
-                    .properties("temperature",      p -> p.integer(i -> i))
-                    .properties("wind_speed",       p -> p.integer(i -> i))
-                )
-            );
+            if (!exists) {
+                esClient.indices().create(c -> c
+                        .index("weather-statuses")
+                        .mappings(m -> m
+                                .properties("station_id", p -> p.long_(l -> l))
+                                .properties("s_no", p -> p.long_(l -> l))
+                                .properties("battery_status", p -> p.keyword(k -> k))
+                                .properties("status_timestamp", p -> p.long_(l -> l))
+                                .properties("humidity", p -> p.integer(i -> i))
+                                .properties("temperature", p -> p.integer(i -> i))
+                                .properties("wind_speed", p -> p.integer(i -> i))));
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to create index: " + e.getMessage());
         }
-    } catch (Exception e) {
-        System.err.println("Failed to create index: " + e.getMessage());
     }
-}
 
     public void indexParquetFile(String filePath, ParquetHandler parquetHandler) {
-        
+
         try {
             List<WeatherStatus> records = parquetHandler.readParquet(filePath);
 

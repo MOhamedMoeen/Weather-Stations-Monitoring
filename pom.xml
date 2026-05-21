@@ -12,6 +12,7 @@
     <modules>
         <module>weather-station</module>
         <module>central-station</module>
+        <module>bitcaks</module>
     </modules>
 
     <properties>
