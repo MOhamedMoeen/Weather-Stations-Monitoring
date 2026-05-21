@@ -79,11 +79,13 @@
 
         public synchronized void put(String key, String value) throws IOException {
             long timestamp = System.currentTimeMillis();
-            long offset = activeSegment.write(key, value, timestamp);
-            keyDir.put(key, new KeyDir(activeSegment.getFileId(), offset, value.getBytes(StandardCharsets.UTF_8).length, timestamp));
-            if (activeSegment.size() >= MAX_SEGMENT_SIZE) {
+            long estimatedSize = 3L * Long.BYTES + key.getBytes(StandardCharsets.UTF_8).length + value.getBytes(StandardCharsets.UTF_8).length;
+            if (activeSegment.size()+estimatedSize > MAX_SEGMENT_SIZE&&activeSegment.size()!=0) {
                 rotateSegment();
             }
+            long offset = activeSegment.write(key, value, timestamp);
+            keyDir.put(key, new KeyDir(activeSegment.getFileId(), offset, value.getBytes(StandardCharsets.UTF_8).length, timestamp));
+
 
         }
 
@@ -104,6 +106,68 @@
                 result.put(key,get(key));
             }
             return result;
+        }
+        public synchronized void compact() throws Exception {
+            List<Long> immutable = new  ArrayList<>();
+            for(Long fileId : segments.keySet()) {
+                if(fileId < activeSegment.getFileId()) {
+                    immutable.add(fileId);
+                }
+            }
+            if(immutable.isEmpty()) return;
+            Collections.sort(immutable);
+            long rebuiltId = 1;
+            String tempPath = dataDirectory + "/compact_" + rebuiltId + ".data";
+            Segment compacted = new Segment(tempPath, rebuiltId);
+            List<Segment> compactedSegments = new  ArrayList<>();
+            compactedSegments.add(compacted);
+            for(Long fileId : immutable) {
+                Segment segment = segments.get(fileId);
+                if(segment == null) continue;
+                for(RecordOffset ro : segment.iterate()) {
+                    Record record = ro.record;
+                    KeyDir kd = keyDir.get(record.key);
+                    if(kd!=null&&kd.fileId==fileId&&kd.offset==ro.offset) {
+                        long estimated = 3L * Long.BYTES + record.keySize + record.valueSize;
+                        if(compacted.size()+estimated>MAX_SEGMENT_SIZE&&compacted.size()!=0) {
+                            rebuiltId++;
+                            tempPath = dataDirectory + "/compact_" + rebuiltId + ".data";
+                            compacted = new Segment(tempPath, rebuiltId);
+                            compactedSegments.add(compacted);
+                        }
+                        long newOffset = compacted.write(record.key,record.value,record.timestamp);
+
+                        //for concurrency
+                        KeyDir current =  keyDir.get(record.key);
+                        if(current!=null&&current.fileId==fileId&&current.offset==ro.offset) {
+                            keyDir.put(record.key, new KeyDir(compacted.getFileId(), newOffset, record.valueSize, record.timestamp));
+                        }
+                    }
+
+                }
+            }
+            for(Segment segment : compactedSegments) {
+                segment.close();
+            }
+            for(Long fileId : immutable) {
+                Segment segment = segments.remove(fileId);
+                if(segment == null) continue;
+                segment.close();
+                File dataFile = new File(dataDirectory + "segment_" + fileId + ".data");
+                File hintFile = new File(dataDirectory + "segment_" + fileId + ".hint");
+                dataFile.delete();
+                hintFile.delete();
+            }
+            for(Segment segment : compactedSegments) {
+                File oldData = new File(dataDirectory,"compact_"+segment.getFileId()+".data");
+                File oldHintFile = new File(dataDirectory,"compact_"+segment.getFileId()+".hint");
+                File newData = new File(dataDirectory + "segment_"+segment.getFileId()+".data");
+                File newHintFile = new File(dataDirectory + "segment_"+segment.getFileId()+".hint");
+                oldData.renameTo(newData);
+                oldHintFile.renameTo(newHintFile);
+                Segment newSegment = new Segment(newData.getPath(),segment.getFileId());
+                segments.put(segment.getFileId(),newSegment);
+            }
         }
 
     }
