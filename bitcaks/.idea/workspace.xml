@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/BitcaskClient.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/handler/BitcaskHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/handler/CompactHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bitcaks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bitcask.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/segment_1.data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/segment_1.hint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BitcaskServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/HintFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/HintFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Segment.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="16" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000000000300842" />
+      <entry key="S10" value="1.0000054849124034" />
+      <entry key="S30" value="1.017714051130682" />
+      <entry key="S60" value="1.1502175686003036" />
+      <entry key="M2" value="1.6292183169159935" />
+      <entry key="M5" value="3.2553015979344924" />
+      <entry key="M10" value="5.747361110233783" />
+      <entry key="M15" value="8.643730080275532" />
+      <entry key="M30" value="22.908353679815193" />
+      <entry key="H1" value="75.44267778172478" />
+      <entry key="H2" value="206.83225939693764" />
+      <entry key="H4" value="390.0274221899159" />
+      <entry key="D1" value="705.1726288692552" />
+      <entry key="W1" value="784.7687485514381" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="9.188320820629114E-288" />
+      <entry key="S2" value="1.983131962327703E-72" />
+      <entry key="S5" value="3.0377127942407523E-29" />
+      <entry key="S10" value="8.72458466567526E-15" />
+      <entry key="S30" value="4.172949305574156E-5" />
+      <entry key="S60" value="0.011149566484660948" />
+      <entry key="M2" value="0.18394950802373636" />
+      <entry key="M5" value="1.2005239440783573" />
+      <entry key="M10" value="3.418274296588927" />
+      <entry key="M15" value="5.673708770850704" />
+      <entry key="M30" value="12.218528092491908" />
+      <entry key="H1" value="29.626703044880376" />
+      <entry key="H2" value="69.88279913773577" />
+      <entry key="H4" value="125.14258852488348" />
+      <entry key="D1" value="219.83768840186556" />
+      <entry key="W1" value="243.7290989924457" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.6643429070482558" />
+      <entry key="MS500" value="0.921464186198704" />
+      <entry key="S2" value="0.9797597976233297" />
+      <entry key="S5" value="0.9918542214069285" />
+      <entry key="S10" value="0.9959215327927808" />
+      <entry key="S30" value="1.0127668088906312" />
+      <entry key="S60" value="1.1460257846638404" />
+      <entry key="M2" value="1.7906020780056597" />
+      <entry key="M5" value="4.4356184637391545" />
+      <entry key="M10" value="9.14940698424854" />
+      <entry key="M15" value="14.303211835150556" />
+      <entry key="M30" value="35.11414357827066" />
+      <entry key="H1" value="105.05412443457342" />
+      <entry key="H2" value="276.6972774172656" />
+      <entry key="H4" value="515.1543995643924" />
+      <entry key="D1" value="925.0058506074005" />
+      <entry key="W1" value="1028.4971431987126" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3DrybggSTe1SK9QpfDtUgl4JzN6" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BitcaskServer.executor": "Run",
+    "Application.Main.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Shell Script.BitcaskClient.sh.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "bitcask-implementation",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/mohamedmoeen/Weather-Stations-Monitoring/bitcaks",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "editor.preferences.completion.inline",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="BitcaskServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.BitcaskServer" />
+      <module name="bitcask" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="bitcask" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="bitcask" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BitcaskServer" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="" />
+      <created>1779054555420</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779054555420</updated>
+      <workItem from="1779054556483" duration="29000" />
+      <workItem from="1779057291541" duration="2902000" />
+      <workItem from="1779060212908" duration="188000" />
+      <workItem from="1779060447205" duration="3905000" />
+      <workItem from="1779111833459" duration="600000" />
+      <workItem from="1779146710260" duration="7430000" />
+      <workItem from="1779223828065" duration="659000" />
+      <workItem from="1779289431179" duration="14305000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
