@@ -7,23 +7,22 @@ import co.elastic.clients.elasticsearch.core.bulk.BulkResponseItem;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
-import com.weather.central.archive.ParquetHandler;
+
+import com.weather.central.archive.AlertsParquetHandler;
+import com.weather.central.archive.WeatherParquetHandler;
 import com.weather.central.model.WeatherStatus;
+
+import org.apache.avro.generic.GenericRecord;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.auth.AuthScope;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
+import java.util.Map;
 
 public class ElasticsearchIndexer {
 
@@ -68,41 +67,77 @@ public class ElasticsearchIndexer {
         }
     }
 
-    public void indexParquetFile(String filePath, ParquetHandler parquetHandler) {
+    public void indexParquetFile(String filePath, String indexName) {
 
         try {
-            List<WeatherStatus> records = parquetHandler.readParquet(filePath);
-
-            if (records.isEmpty()) {
-                System.out.println("File is empty, skipping indexing.");
-                return;
-            }
-
             BulkRequest.Builder br = new BulkRequest.Builder();
-            for (WeatherStatus status : records) {
-                br.operations(op -> op
-                        .index(idx -> idx
-                                .index("weather-statuses")
-                                .document(status)));
-            }
-
-            BulkResponse result = esClient.bulk(br.build());
-            if (result.errors()) {
-                List<BulkResponseItem> items = result.items();
-                for (int i = 0; i < items.size(); i++) {
-                    BulkResponseItem item = items.get(i);
-                    if (item.error() != null) {
-                        WeatherStatus failedRecord = records.get(i);
-                        String errorReason = item.error().reason();
-                        String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}\n",
-                                errorReason, mapper.writeValueAsString(failedRecord));
-                        Files.write(Paths.get("es-invalid-messages.log"),
-                                logEntry.getBytes(),
-                                StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-                    }
+            if (indexName.equals("weather-statuses")) {
+                WeatherParquetHandler weatherParquetHandler = new WeatherParquetHandler();
+                List<WeatherStatus> records = weatherParquetHandler.readParquet(filePath);
+                if (records.isEmpty()) {
+                    System.out.println("File is empty, skipping indexing.");
+                    return;
                 }
-            } else {
-                System.out.println("Successfully indexed records from " + filePath);
+
+                for (WeatherStatus status : records) {
+                    br.operations(op -> op
+                            .index(idx -> idx
+                                    .index("weather-statuses")
+                                    .document(status)));
+                }
+
+                BulkResponse result = esClient.bulk(br.build());
+                if (result.errors()) {
+                    List<BulkResponseItem> items = result.items();
+                    for (int i = 0; i < items.size(); i++) {
+                        BulkResponseItem item = items.get(i);
+                        if (item.error() != null) {
+                            WeatherStatus failedRecord = records.get(i);
+                            String errorReason = item.error().reason();
+                            String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}\n",
+                                    errorReason, mapper.writeValueAsString(failedRecord));
+                            Files.write(Paths.get("es-invalid-messages.log"),
+                                    logEntry.getBytes(),
+                                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+                        }
+                    }
+                } else {
+                    System.out.println("Successfully indexed records from " + filePath);
+                }
+            } else if (indexName.equals("rain-alerts")) {
+                AlertsParquetHandler alertsParquetHandler = new AlertsParquetHandler();
+                List<GenericRecord> records = alertsParquetHandler.readParquet(filePath);
+                if (records.isEmpty()) {
+                    System.out.println("File is empty, skipping indexing.");
+                    return;
+                }
+
+                for (GenericRecord record : records) {
+                    Map<String, Object> doc = mapper.readValue(record.toString(), Map.class);
+                    br.operations(op -> op
+                            .index(idx -> idx
+                                    .index("rain-alerts")
+                                    .document(doc)));
+                }
+
+                BulkResponse result = esClient.bulk(br.build());
+                if (result.errors()) {
+                    List<BulkResponseItem> items = result.items();
+                    for (int i = 0; i < items.size(); i++) {
+                        BulkResponseItem item = items.get(i);
+                        if (item.error() != null) {
+                            GenericRecord failedRecord = records.get(i);
+                            String errorReason = item.error().reason();
+                            String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}\n",
+                                    errorReason, failedRecord.toString());
+                            Files.write(Paths.get("es-invalid-messages.log"),
+                                    logEntry.getBytes(),
+                                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+                        }
+                    }
+                } else {
+                    System.out.println("Successfully indexed records from " + filePath);
+                }
             }
 
         } catch (Exception e) {
