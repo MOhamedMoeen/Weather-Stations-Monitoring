@@ -82,7 +82,8 @@ services:
       ES_PASSWORD: ""
       BITCASK_URL: http://bitcask-server:8080   # ← so updateBitcask() hits the right host
     volumes:
-      - ./central-station/archivedData:/app/archivedData 
+      - ./central-station/archivedData:/app/archivedData
+      - ./central-station/rainAlerts:/app/rainAlerts
 
   weather-station-1:
     build:
@@ -225,6 +226,18 @@ services:
       STATION_ID: "0"
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       KAFKA_TOPIC: weather_status
+
+  rain-trigger-processor:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: rain-trigger-processor
+    command: ["java", "-cp", "app.jar", "com.weather.station.RainTriggerProcessor"]
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 
 volumes:
   parquet-data:    # parquet archive files
