@@ -7,7 +7,7 @@ cd /home/naduto/Documents/Weather-Stations-Monitoring
 
 # Build each service's image
 docker build -t localhost:5000/bitcask-server:latest ./bitcaks/
-docker build -t localhost:5000/central-station:latest ./central-station/
+docker build -t localhost:5000/central-station:latest -f central-station/Dockerfile .
 docker build -t localhost:5000/weather-station:latest ./weather-station/
 
 # Push to local registry
@@ -54,6 +54,7 @@ cat /app/bitcask-data/segment_1.hint
 #### to try the bitcask shell first 
 ```
 kubectl port-forward svc/bitcask-server 8080:8080
+kubectl port-forward svc/kibana-service 5601:5601
 cd bitcak
 ./BitcaskClient.sh
 

@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/BitcaskServer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Bitcask.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/HintFile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/KeyDir.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Record.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/RecordOffset.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Segment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/handler/BitcaskHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/example/handler/CompactHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/untitled-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../central-station/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../central-station/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../k8s.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../k8s.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +17,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="45" />
+    <option name="cachedIndexableFilesCount" value="34" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -122,10 +114,10 @@
     "Shell Script.BitcaskClient.sh.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "handle-integrations",
+    "git-widget-placeholder": "kubernetes-new",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/mohamedmoeen/Weather-Stations-Monitoring/bitcaks",
+    "last_opened_file_path": "/home/mohamedmoeen/DDIA-Project/Weather-Stations-Monitoring/bitcaks",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -185,6 +177,7 @@
       <workItem from="1779388302532" duration="2242000" />
       <workItem from="1779390876396" duration="5865000" />
       <workItem from="1779407220225" duration="264000" />
+      <workItem from="1779460545168" duration="608000" />
     </task>
     <servers />
   </component>
