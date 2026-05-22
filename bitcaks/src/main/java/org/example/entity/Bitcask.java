@@ -153,16 +153,16 @@
                 Segment segment = segments.remove(fileId);
                 if(segment == null) continue;
                 segment.close();
-                File dataFile = new File(dataDirectory + "segment_" + fileId + ".data");
-                File hintFile = new File(dataDirectory + "segment_" + fileId + ".hint");
+                File dataFile = new File(dataDirectory + "/segment_" + fileId + ".data");
+                File hintFile = new File(dataDirectory + "/segment_" + fileId + ".hint");
                 dataFile.delete();
                 hintFile.delete();
             }
             for(Segment segment : compactedSegments) {
                 File oldData = new File(dataDirectory,"compact_"+segment.getFileId()+".data");
                 File oldHintFile = new File(dataDirectory,"compact_"+segment.getFileId()+".hint");
-                File newData = new File(dataDirectory + "segment_"+segment.getFileId()+".data");
-                File newHintFile = new File(dataDirectory + "segment_"+segment.getFileId()+".hint");
+                File newData = new File(dataDirectory + "/segment_"+segment.getFileId()+".data");
+                File newHintFile = new File(dataDirectory + "/segment_"+segment.getFileId()+".hint");
                 oldData.renameTo(newData);
                 oldHintFile.renameTo(newHintFile);
                 Segment newSegment = new Segment(newData.getPath(),segment.getFileId());
