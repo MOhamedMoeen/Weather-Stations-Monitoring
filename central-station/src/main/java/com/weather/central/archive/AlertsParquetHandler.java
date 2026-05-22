@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class AlertsParquetHandler {
 
-    private static int batch_size = 1000;
+    private static int batch_size = 100;
     private static String base_dir = "rainAlerts";
     private static DateTimeFormatter date_format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             .withZone(ZoneId.of(ZoneId.systemDefault().getId()));
@@ -90,20 +90,21 @@ public class AlertsParquetHandler {
         if (batch.isEmpty())
             return;
 
-        // Grouping records
-        Map<String, List<GenericRecord>> grouped = groupByStationAndDate(batch);
+        List<GenericRecord> toFlush = new ArrayList<>(batch); // snapshot first
+        batch.clear();
 
+        Map<String, List<GenericRecord>> grouped = groupByStationAndDate(toFlush);
+
+        // Write all files first
         for (Map.Entry<String, List<GenericRecord>> entry : grouped.entrySet()) {
             String dirPath = entry.getKey();
             String fileName = "data_" + System.currentTimeMillis() + ".parquet";
             String fullPath = dirPath + "/" + fileName;
             writeBatch(entry.getValue(), fullPath);
-
-            // Trigger Elasticsearch indexing for the newly created file!
-            esIndexer.indexParquetFile(fullPath, "rain-alerts");
         }
 
-        batch.clear(); // clear after writing
+        // ONE bulk call for entire flush outside the loop
+        esIndexer.indexAlertRecords(toFlush);
     }
 
     // Write a batch of records to its parquet file

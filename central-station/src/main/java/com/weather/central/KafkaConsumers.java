@@ -37,7 +37,8 @@ public class KafkaConsumers {
 
     private static final java.net.http.HttpClient httpClient = java.net.http.HttpClient.newHttpClient();
 
-    private static final Map<String, Boolean> processedMessages = new LinkedHashMap<String, Boolean>(CACHE_SIZE, 0.75f, true) {
+    private static final Map<String, Boolean> processedMessages = new LinkedHashMap<String, Boolean>(CACHE_SIZE, 0.75f,
+            true) {
         @Override
         protected boolean removeEldestEntry(Map.Entry<String, Boolean> eldest) {
             return size() > CACHE_SIZE;
@@ -80,11 +81,11 @@ public class KafkaConsumers {
             JsonNode root = mapper.readTree(jsonMessage);
 
             GenericRecord record = new GenericData.Record(rainAlertSchema);
-            record.put("event",      root.path("event").asText());
+            record.put("event", root.path("event").asText());
             record.put("station_id", root.path("station_id").asLong());
-            record.put("s_no",       root.path("s_no").asLong());
-            record.put("humidity",   root.path("humidity").asInt());
-            record.put("status",     root.path("status").asText());
+            record.put("s_no", root.path("s_no").asLong());
+            record.put("humidity", root.path("humidity").asInt());
+            record.put("status", root.path("status").asText());
 
             return record;
 
@@ -100,11 +101,13 @@ public class KafkaConsumers {
         AlertsParquetHandler alertsHandler = new AlertsParquetHandler();
         Producer<String, String> invalidMessagesProducer = createInvalidMessagesProducer();
 
+        Consumer<String, String> invalidMessageConsumer = createConsumer("invalid-messages-group", "earliest");
         Consumer<String, String> archiveConsumer = createConsumer("archiving-group", "earliest");
-        Consumer<String, String> rainAlertsConsumer = createConsumer("rain-alerts-group", "latest");
+        Consumer<String, String> rainAlertsConsumer = createConsumer("rain-alerts-group", "earliest");
 
         archiveConsumer.subscribe(Collections.singletonList("weather_status"));
         rainAlertsConsumer.subscribe(Collections.singletonList("rain_alerts"));
+        invalidMessageConsumer.subscribe(Collections.singletonList("invalid-messages"));
 
         System.out.println("Subscribed to topics: weather_status, rain_alerts");
 
@@ -140,8 +143,10 @@ public class KafkaConsumers {
                         }
 
                     } catch (Exception e) {
-                        System.err.println("Failed to parse weather message. Sending to invalid-messages: " + record.value());
-                        invalidMessagesProducer.send(new ProducerRecord<>("invalid-messages", record.key(), record.value()));
+                        System.err.println(
+                                "Failed to parse weather message. Sending to invalid-messages: " + record.value());
+                        invalidMessagesProducer
+                                .send(new ProducerRecord<>("invalid-messages", record.key(), record.value()));
                     }
                 }
 
@@ -154,9 +159,16 @@ public class KafkaConsumers {
                             alertsHandler.addRecord(rainRecord);
                         }
                     } catch (Exception e) {
-                        System.err.println("Failed to parse rain alert. Sending to invalid-messages: " + record.value());
-                        invalidMessagesProducer.send(new ProducerRecord<>("invalid-messages", record.key(), record.value()));
+                        System.err
+                                .println("Failed to parse rain alert. Sending to invalid-messages: " + record.value());
+                        invalidMessagesProducer
+                                .send(new ProducerRecord<>("invalid-messages", record.key(), record.value()));
                     }
+                }
+                // ── invalid-messages consumer ─────────────────────────────────────
+                ConsumerRecords<String, String> invalidRecords = invalidMessageConsumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, String> record : invalidRecords) {
+                    System.err.println("Invalid message: " + record.value());
                 }
             }
 
@@ -166,6 +178,7 @@ public class KafkaConsumers {
             invalidMessagesProducer.close();
             weatherHandler.close();
             alertsHandler.close();
+            invalidMessageConsumer.close();
         }
     }
 
@@ -204,7 +217,8 @@ public class KafkaConsumers {
             httpClient.send(request, java.net.http.HttpResponse.BodyHandlers.discarding());
 
         } catch (Exception e) {
-            System.err.println("Failed to update Bitcask for station " + status.getStation_id() + ": " + e.getMessage());
+            System.err
+                    .println("Failed to update Bitcask for station " + status.getStation_id() + ": " + e.getMessage());
         }
     }
 }
