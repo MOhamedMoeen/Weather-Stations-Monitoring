@@ -1,5 +1,3 @@
-package org.example;
-
 import org.example.entity.Bitcask;
 
 import java.io.IOException;
