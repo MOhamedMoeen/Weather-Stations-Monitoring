@@ -5,11 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/test/java/BitcaskIntegrationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../central-station/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../central-station/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../k8s.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../k8s.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779391110.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779391161.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779397398.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779399342.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779399351.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779399581.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779399620.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779399641.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779399648.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/1779405278.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BitcaskServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BitcaskServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/HintFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/HintFile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/BitcaskServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Bitcask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/HintFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/KeyDir.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Record.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/RecordOffset.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Segment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/handler/BitcaskHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/handler/CompactHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/untitled-1.0-SNAPSHOT.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,7 +42,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="34" />
+    <option name="cachedIndexableFilesCount" value="35" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -35,61 +60,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0053901420964766" />
-      <entry key="MS500" value="1.821557811761797" />
-      <entry key="S2" value="3.1669682405251023" />
-      <entry key="S5" value="3.636720722491124" />
-      <entry key="S10" value="3.8896969442389535" />
-      <entry key="S30" value="5.1251361022031015" />
-      <entry key="S60" value="7.161029086497009" />
-      <entry key="M2" value="9.540289232701731" />
-      <entry key="M5" value="11.870124262520678" />
-      <entry key="M10" value="12.867208892628863" />
-      <entry key="M15" value="13.24547823084822" />
-      <entry key="M30" value="14.598684353190558" />
-      <entry key="H1" value="29.1558708749128" />
-      <entry key="H2" value="106.73666674083313" />
-      <entry key="H4" value="275.3744798224874" />
-      <entry key="D1" value="675.6387064016265" />
-      <entry key="W1" value="794.156940398251" />
+      <entry key="MS100" value="8.758615048244692E-5" />
+      <entry key="MS500" value="0.2505622950106514" />
+      <entry key="S2" value="2.3472967318230995" />
+      <entry key="S5" value="5.006448606466603" />
+      <entry key="S10" value="6.714730815427262" />
+      <entry key="S30" value="9.18218024739809" />
+      <entry key="S60" value="11.558324285437488" />
+      <entry key="M2" value="14.164534224685296" />
+      <entry key="M5" value="16.690799128708264" />
+      <entry key="M10" value="17.771335147544853" />
+      <entry key="M15" value="18.179993714148434" />
+      <entry key="M30" value="19.563211167247182" />
+      <entry key="H1" value="34.12359745010722" />
+      <entry key="H2" value="111.68180288669873" />
+      <entry key="H4" value="280.30495281663184" />
+      <entry key="D1" value="680.610464768137" />
+      <entry key="W1" value="799.1522013899261" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="8.924371988202797E-270" />
-      <entry key="S30" value="4.204561827204648E-90" />
-      <entry key="S60" value="3.5391323076918715E-45" />
-      <entry key="M2" value="1.0363776513703248E-22" />
-      <entry key="M5" value="3.799256277958284E-9" />
-      <entry key="M10" value="1.9229623938375647E-4" />
-      <entry key="M15" value="0.008329960864323584" />
-      <entry key="M30" value="0.4681735264608172" />
-      <entry key="H1" value="5.79932309091218" />
-      <entry key="H2" value="30.918419285039082" />
-      <entry key="H4" value="83.23934018366414" />
-      <entry key="D1" value="205.3947780749861" />
-      <entry key="W1" value="241.37443808004565" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0" />
+      <entry key="S60" value="1.0" />
+      <entry key="M2" value="1.0" />
+      <entry key="M5" value="1.0000000037540044" />
+      <entry key="M10" value="1.0001911476171663" />
+      <entry key="M15" value="1.0082967567872818" />
+      <entry key="M30" value="1.467239500940987" />
+      <entry key="H1" value="6.7935352581967745" />
+      <entry key="H2" value="31.902986853774745" />
+      <entry key="H4" value="84.21856380245467" />
+      <entry key="D1" value="206.38623282849548" />
+      <entry key="W1" value="242.3730034623743" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.0570312344465158" />
-      <entry key="MS500" value="1.369386056288283" />
-      <entry key="S2" value="3.0258887800750514" />
-      <entry key="S5" value="3.5774738326680695" />
-      <entry key="S10" value="3.858488096743083" />
-      <entry key="S30" value="5.098174387088549" />
-      <entry key="S60" value="7.1247364171856065" />
-      <entry key="M2" value="9.506841965399824" />
-      <entry key="M5" value="11.850371387202053" />
-      <entry key="M10" value="12.856122668636168" />
-      <entry key="M15" value="13.245926285075647" />
-      <entry key="M30" value="15.06225225927663" />
-      <entry key="H1" value="34.950085878407926" />
-      <entry key="H2" value="137.64613349270527" />
-      <entry key="H4" value="358.60288454827304" />
-      <entry key="D1" value="881.029217738497" />
-      <entry key="W1" value="1035.5306675318332" />
+      <entry key="MS100" value="1.6738371915845586E-4" />
+      <entry key="MS500" value="0.4010949254845987" />
+      <entry key="S2" value="2.945088713313247" />
+      <entry key="S5" value="5.803196179503231" />
+      <entry key="S10" value="7.601308602764684" />
+      <entry key="S30" value="10.1266562085119" />
+      <entry key="S60" value="12.508200936701638" />
+      <entry key="M2" value="15.124068621874704" />
+      <entry key="M5" value="17.66807095020658" />
+      <entry key="M10" value="18.758708450601638" />
+      <entry key="M15" value="19.179368540852693" />
+      <entry key="M30" value="21.025318358963947" />
+      <entry key="H1" value="40.91176174109064" />
+      <entry key="H2" value="143.5757076771518" />
+      <entry key="H4" value="364.5125168888971" />
+      <entry key="D1" value="886.9924198687272" />
+      <entry key="W1" value="1041.5244923147254" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -103,6 +128,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.BitcaskIntegrationTest.executor": "Run",
     "Application.BitcaskServer.executor": "Run",
     "Application.Main.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -123,7 +149,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "editor.preferences.completion.inline",
@@ -131,7 +157,20 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.BitcaskIntegrationTest">
+    <configuration name="BitcaskIntegrationTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.BitcaskIntegrationTest" />
+      <module name="untitled" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BitcaskServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.BitcaskServer" />
       <module name="bitcask" />
@@ -147,6 +186,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BitcaskIntegrationTest" />
         <item itemvalue="Application.BitcaskServer" />
       </list>
     </recent_temporary>
@@ -177,7 +217,8 @@
       <workItem from="1779388302532" duration="2242000" />
       <workItem from="1779390876396" duration="5865000" />
       <workItem from="1779407220225" duration="264000" />
-      <workItem from="1779460545168" duration="608000" />
+      <workItem from="1779407493988" duration="1103000" />
+      <workItem from="1779456279296" duration="956000" />
     </task>
     <servers />
   </component>
