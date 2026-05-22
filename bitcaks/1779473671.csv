@@ -1,0 +1,6 @@
+key,value
+1,"{""station_id"":1,""s_no"":2340,""battery_status"":""high"",""status_timestamp"":1779473671,""humidity"":38,""temperature"":111,""wind_speed"":8}"
+2,"{""station_id"":2,""s_no"":2333,""battery_status"":""low"",""status_timestamp"":1779473671,""humidity"":42,""temperature"":70,""wind_speed"":50}"
+3,"{""station_id"":3,""s_no"":2332,""battery_status"":""low"",""status_timestamp"":1779473671,""humidity"":51,""temperature"":77,""wind_speed"":35}"
+4,"{""station_id"":4,""s_no"":2331,""battery_status"":""medium"",""status_timestamp"":1779473671,""humidity"":72,""temperature"":101,""wind_speed"":2}"
+5,"{""station_id"":5,""s_no"":2338,""battery_status"":""medium"",""status_timestamp"":1779473671,""humidity"":1,""temperature"":95,""wind_speed"":12}"
