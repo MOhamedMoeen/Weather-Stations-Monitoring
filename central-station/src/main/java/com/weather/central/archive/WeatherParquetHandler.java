@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class WeatherParquetHandler {
 
-    private static int batch_size = 500;
+    private static int batch_size = 10000;
     private static String base_dir = "archivedData";
     private static DateTimeFormatter date_format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             .withZone(ZoneId.systemDefault());

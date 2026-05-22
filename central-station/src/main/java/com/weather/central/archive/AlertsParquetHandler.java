@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class AlertsParquetHandler {
 
-    private static int batch_size = 100;
+    private static int batch_size = 1000;
     private static String base_dir = "rainAlerts";
     private static DateTimeFormatter date_format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             .withZone(ZoneId.of(ZoneId.systemDefault().getId()));
