@@ -1,0 +1,4 @@
+key,value
+1,"{""station_id"":1,""s_no"":3101,""battery_status"":""high"",""status_timestamp"":1779476806,""humidity"":32,""temperature"":82,""wind_speed"":20}"
+2,"{""station_id"":2,""s_no"":3108,""battery_status"":""low"",""status_timestamp"":1779476806,""humidity"":60,""temperature"":96,""wind_speed"":30}"
+3,"{""station_id"":3,""s_no"":3098,""battery_status"":""high"",""status_timestamp"":1779476806,""humidity"":100,""temperature"":82,""wind_speed"":30}"
