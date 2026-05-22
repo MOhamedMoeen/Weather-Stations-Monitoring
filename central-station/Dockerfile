@@ -14,4 +14,4 @@ COPY --from=builder /app/central-station/target/*.jar app.jar
 RUN mkdir -p /app/archivedData
 RUN mkdir -p /app/jfr
 
-CMD java -XX:StartFlightRecording=duration=60s,filename=/app/jfr/recording.jfr,settings=profile -jar app.jar
+CMD ["java", "-XX:StartFlightRecording=duration=60s,filename=/app/jfr/recording.jfr,settings=profile", "-jar", "app.jar"]

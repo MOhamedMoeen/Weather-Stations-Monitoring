@@ -337,6 +337,32 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: rain-trigger-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rain-trigger-processor
+  template:
+    metadata:
+      labels:
+        app: rain-trigger-processor
+    spec:
+      containers:
+        - name: rain-trigger-processor
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          command: ["java", "-cp", "app.jar", "com.weather.station.RainTriggerProcessor"]
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: weather-station-4
 spec:
   replicas: 1
@@ -359,6 +385,18 @@ spec:
               value: "kafka-service:9092"
             - name: KAFKA_TOPIC
               value: "weather_status"
+        - name: rain-trigger-processor
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "4"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+            - name: PROCESSOR_TYPE
+              value: "rain-trigger"
 
 ---
 apiVersion: apps/v1
@@ -386,7 +424,6 @@ spec:
               value: "kafka-service:9092"
             - name: KAFKA_TOPIC
               value: "weather_status"
-
 ---
 # ─── OPEN-METEO ADAPTER ──────────────────────────────────────────────────────
 apiVersion: apps/v1

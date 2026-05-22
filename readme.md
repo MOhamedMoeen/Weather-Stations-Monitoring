@@ -53,7 +53,7 @@ cat /app/bitcask-data/segment_1.hint
 ```
 #### to try the bitcask shell first 
 ```
-kubectl port-forward svc/bitcask-server 8080:8080
+kubectl port-forward svc/bitcask-server-service 8080:8080
 kubectl port-forward svc/kibana-service 5601:5601
 cd bitcak
 ./BitcaskClient.sh
