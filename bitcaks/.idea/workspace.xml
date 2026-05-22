@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../central-station/src/main/java/com/weather/central/KafkaConsumers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../central-station/src/main/java/com/weather/central/KafkaConsumers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../k8s.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../k8s.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/../readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/RainTriggerProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/RainTriggerProcessor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/WeatherStation.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/WeatherStation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/WeatherStationProducer.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/WeatherStationProducer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/WeatherStationRunner.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/WeatherStationRunner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/adapter/OpenMeteoAdapter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/adapter/OpenMeteoAdapter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/adapter/OpenMeteoResponse$Current.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/adapter/OpenMeteoResponse$Current.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/adapter/OpenMeteoResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/adapter/OpenMeteoResponse.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/model/WeatherData.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/model/WeatherData.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/model/WeatherMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/model/WeatherMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/util/MessageGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/target/classes/com/weather/station/util/MessageGenerator.class" afterDir="false" />
-    </list>
+    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -215,7 +199,7 @@
       <workItem from="1779456279296" duration="956000" />
       <workItem from="1779475415079" duration="3236000" />
       <workItem from="1779479522775" duration="3395000" />
-      <workItem from="1779489367557" duration="1578000" />
+      <workItem from="1779489367557" duration="2184000" />
     </task>
     <servers />
   </component>
