@@ -7,6 +7,8 @@ import org.example.handler.CompactHandler;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class BitcaskServer {
@@ -26,12 +28,22 @@ public class BitcaskServer {
                 Runtime.getRuntime().availableProcessors() * 2
         ));
 
+
+        ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                bitcask.compact();
+                System.out.println("Scheduled compaction completed");
+            } catch (Exception e) {
+                System.err.println("Scheduled compaction failed: " + e.getMessage());
+            }
+        }, 1, 60, TimeUnit.MINUTES);
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Shutting down...");
+            scheduler.shutdown();
             server.stop(1);
             try { bitcask.close(); } catch (Exception ignored) {}
         }));
-
         server.start();
         System.out.printf("Bitcask server running on http://localhost:%d%n", port);
         System.out.printf("Data directory: %s%n", dataDir);

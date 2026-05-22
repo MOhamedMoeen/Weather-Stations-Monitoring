@@ -50,7 +50,7 @@ public class HintFile  implements AutoCloseable {
 
         while (buffer.hasRemaining()) {
             int written=channel.write(buffer, position);
-            offset+=written;
+            position+=written;
         }
     }
 
