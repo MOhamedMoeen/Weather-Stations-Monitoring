@@ -195,13 +195,14 @@ public class KafkaConsumers {
             String key = String.valueOf(status.getStation_id());
             String value = mapper.writeValueAsString(status);
 
-            java.net.http.HttpRequest request = java.net.http.HttpRequest.newBuilder()
-                    .uri(java.net.URI.create(BITCASK_BASE_URL + "/keys/" + key))
-                    .header("Content-Type", "text/plain")
-                    .PUT(java.net.http.HttpRequest.BodyPublishers.ofString(value))
-                    .build();
-
-            httpClient.send(request, java.net.http.HttpResponse.BodyHandlers.discarding());
+            java.net.URL url = new java.net.URL(BITCASK_BASE_URL + "/keys/" + key);
+            java.net.HttpURLConnection conn = (java.net.HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setRequestProperty("Content-Type", "text/plain");
+            conn.setDoOutput(true);
+            conn.getOutputStream().write(value.getBytes());
+            conn.getResponseCode();
+            conn.disconnect();
 
         } catch (Exception e) {
             System.err.println("Failed to update Bitcask for station " + status.getStation_id() + ": " + e.getMessage());
