@@ -1,0 +1,231 @@
+
+services:
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    healthcheck:
+      test: ["CMD", "bash", "-c", 
+        "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:9092 --list"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:9.0.0
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:9.0.0
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  # Bitcask HTTP server — exposes the key-value store via REST
+  bitcask-server:
+    build:
+      context: ./bitcaks       # folder containing this Dockerfile + pom.xml
+      dockerfile: Dockerfile
+    container_name: bitcask-server
+    ports:
+      - "8080:8080"
+    volumes:
+      - bitcask-data:/app/bitcask-data
+
+  # Kafka consumer — archives to parquet + updates bitcask
+  central-station:
+    build:
+      context: .
+      dockerfile: central-station/Dockerfile
+    container_name: central-station
+    depends_on:
+      kafka:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+      bitcask-server:
+        condition: service_started
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      ES_HOST: elasticsearch
+      ES_PORT: 9200
+      ES_PASSWORD: ""
+      BITCASK_URL: http://bitcask-server:8080   # ← so updateBitcask() hits the right host
+    volumes:
+      - ./central-station/archivedData:/app/archivedData 
+
+  weather-station-1:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: weather-station-1
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      STATION_ID: "1"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: weather_status
+
+  weather-station-2:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: weather-station-2
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      STATION_ID: "2"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: weather_status
+
+  weather-station-3:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: weather-station-3
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      STATION_ID: "3"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: weather_status
+
+  weather-station-4:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: weather-station-4
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      STATION_ID: "4"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: weather_status
+  weather-station-5:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: weather-station-5
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      STATION_ID: "5"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: weather_status
+
+  # weather-station-6:
+  #   build:
+  #     context: ./weather-station
+  #     dockerfile: Dockerfile
+  #   container_name: weather-station-6
+  #   depends_on:
+  #     kafka:
+  #       condition: service_healthy
+  #   environment:
+  #     STATION_ID: "6"
+  #     KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  #     KAFKA_TOPIC: weather_status
+
+
+  # weather-station-7:
+  #   build:
+  #     context: ./weather-station
+  #     dockerfile: Dockerfile
+  #   container_name: weather-station-7
+  #   depends_on:
+  #     kafka:
+  #       condition: service_healthy
+  #   environment:
+  #     STATION_ID: "7"
+  #     KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  #     KAFKA_TOPIC: weather_status
+
+  # weather-station-8:
+  #   build:
+  #     context: ./weather-station
+  #     dockerfile: Dockerfile
+  #   container_name: weather-station-8
+  #   depends_on:
+  #     kafka:
+  #       condition: service_healthy
+  #   environment:
+  #     STATION_ID: "8"
+  #     KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  #     KAFKA_TOPIC: weather_status
+
+  # weather-station-9:
+  #   build:
+  #     context: ./weather-station
+  #     dockerfile: Dockerfile
+  #   container_name: weather-station-9
+  #   depends_on:
+  #     kafka:
+  #       condition: service_healthy
+  #   environment:
+  #     STATION_ID: "9"
+  #     KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  #     KAFKA_TOPIC: weather_status
+
+  # weather-station-10:
+  #   build:
+  #     context: ./weather-station
+  #     dockerfile: Dockerfile
+  #   container_name: weather-station-10
+  #   depends_on:
+  #     kafka:
+  #       condition: service_healthy
+  #   environment:
+  #     STATION_ID: "10"
+  #     KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+  #     KAFKA_TOPIC: weather_status
+  open-meteo-adapter:
+    build:
+      context: ./weather-station
+      dockerfile: Dockerfile
+    container_name: open-meteo-adapter
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      STATION_ID: "0"
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      KAFKA_TOPIC: weather_status
+
+volumes:
+  parquet-data:    # parquet archive files
+  bitcask-data:    # bitcask segment + hint files

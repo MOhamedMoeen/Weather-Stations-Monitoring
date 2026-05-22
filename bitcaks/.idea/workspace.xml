@@ -5,19 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/BitcaskClient.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/handler/BitcaskHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/handler/CompactHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/bitcaks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/bitcask.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/segment_1.data" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/segment_1.hint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BitcaskServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Bitcask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/HintFile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/HintFile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entity/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entity/Segment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/BitcaskServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Bitcask.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/HintFile.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/KeyDir.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Record.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/RecordOffset.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/entity/Segment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/handler/BitcaskHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/handler/CompactHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/untitled-1.0-SNAPSHOT.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +25,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="16" />
+    <option name="cachedIndexableFilesCount" value="45" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -43,61 +43,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0" />
-      <entry key="S5" value="1.0000000000300842" />
-      <entry key="S10" value="1.0000054849124034" />
-      <entry key="S30" value="1.017714051130682" />
-      <entry key="S60" value="1.1502175686003036" />
-      <entry key="M2" value="1.6292183169159935" />
-      <entry key="M5" value="3.2553015979344924" />
-      <entry key="M10" value="5.747361110233783" />
-      <entry key="M15" value="8.643730080275532" />
-      <entry key="M30" value="22.908353679815193" />
-      <entry key="H1" value="75.44267778172478" />
-      <entry key="H2" value="206.83225939693764" />
-      <entry key="H4" value="390.0274221899159" />
-      <entry key="D1" value="705.1726288692552" />
-      <entry key="W1" value="784.7687485514381" />
+      <entry key="MS100" value="1.0053901420964766" />
+      <entry key="MS500" value="1.821557811761797" />
+      <entry key="S2" value="3.1669682405251023" />
+      <entry key="S5" value="3.636720722491124" />
+      <entry key="S10" value="3.8896969442389535" />
+      <entry key="S30" value="5.1251361022031015" />
+      <entry key="S60" value="7.161029086497009" />
+      <entry key="M2" value="9.540289232701731" />
+      <entry key="M5" value="11.870124262520678" />
+      <entry key="M10" value="12.867208892628863" />
+      <entry key="M15" value="13.24547823084822" />
+      <entry key="M30" value="14.598684353190558" />
+      <entry key="H1" value="29.1558708749128" />
+      <entry key="H2" value="106.73666674083313" />
+      <entry key="H4" value="275.3744798224874" />
+      <entry key="D1" value="675.6387064016265" />
+      <entry key="W1" value="794.156940398251" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="9.188320820629114E-288" />
-      <entry key="S2" value="1.983131962327703E-72" />
-      <entry key="S5" value="3.0377127942407523E-29" />
-      <entry key="S10" value="8.72458466567526E-15" />
-      <entry key="S30" value="4.172949305574156E-5" />
-      <entry key="S60" value="0.011149566484660948" />
-      <entry key="M2" value="0.18394950802373636" />
-      <entry key="M5" value="1.2005239440783573" />
-      <entry key="M10" value="3.418274296588927" />
-      <entry key="M15" value="5.673708770850704" />
-      <entry key="M30" value="12.218528092491908" />
-      <entry key="H1" value="29.626703044880376" />
-      <entry key="H2" value="69.88279913773577" />
-      <entry key="H4" value="125.14258852488348" />
-      <entry key="D1" value="219.83768840186556" />
-      <entry key="W1" value="243.7290989924457" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="8.924371988202797E-270" />
+      <entry key="S30" value="4.204561827204648E-90" />
+      <entry key="S60" value="3.5391323076918715E-45" />
+      <entry key="M2" value="1.0363776513703248E-22" />
+      <entry key="M5" value="3.799256277958284E-9" />
+      <entry key="M10" value="1.9229623938375647E-4" />
+      <entry key="M15" value="0.008329960864323584" />
+      <entry key="M30" value="0.4681735264608172" />
+      <entry key="H1" value="5.79932309091218" />
+      <entry key="H2" value="30.918419285039082" />
+      <entry key="H4" value="83.23934018366414" />
+      <entry key="D1" value="205.3947780749861" />
+      <entry key="W1" value="241.37443808004565" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.6643429070482558" />
-      <entry key="MS500" value="0.921464186198704" />
-      <entry key="S2" value="0.9797597976233297" />
-      <entry key="S5" value="0.9918542214069285" />
-      <entry key="S10" value="0.9959215327927808" />
-      <entry key="S30" value="1.0127668088906312" />
-      <entry key="S60" value="1.1460257846638404" />
-      <entry key="M2" value="1.7906020780056597" />
-      <entry key="M5" value="4.4356184637391545" />
-      <entry key="M10" value="9.14940698424854" />
-      <entry key="M15" value="14.303211835150556" />
-      <entry key="M30" value="35.11414357827066" />
-      <entry key="H1" value="105.05412443457342" />
-      <entry key="H2" value="276.6972774172656" />
-      <entry key="H4" value="515.1543995643924" />
-      <entry key="D1" value="925.0058506074005" />
-      <entry key="W1" value="1028.4971431987126" />
+      <entry key="MS100" value="0.0570312344465158" />
+      <entry key="MS500" value="1.369386056288283" />
+      <entry key="S2" value="3.0258887800750514" />
+      <entry key="S5" value="3.5774738326680695" />
+      <entry key="S10" value="3.858488096743083" />
+      <entry key="S30" value="5.098174387088549" />
+      <entry key="S60" value="7.1247364171856065" />
+      <entry key="M2" value="9.506841965399824" />
+      <entry key="M5" value="11.850371387202053" />
+      <entry key="M10" value="12.856122668636168" />
+      <entry key="M15" value="13.245926285075647" />
+      <entry key="M30" value="15.06225225927663" />
+      <entry key="H1" value="34.950085878407926" />
+      <entry key="H2" value="137.64613349270527" />
+      <entry key="H4" value="358.60288454827304" />
+      <entry key="D1" value="881.029217738497" />
+      <entry key="W1" value="1035.5306675318332" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -122,7 +122,7 @@
     "Shell Script.BitcaskClient.sh.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "bitcask-implementation",
+    "git-widget-placeholder": "handle-integrations",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/mohamedmoeen/Weather-Stations-Monitoring/bitcaks",
@@ -132,7 +132,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
+    "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "editor.preferences.completion.inline",
     "to.speed.mode.migration.done": "true",
@@ -152,17 +152,6 @@
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="bitcask" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="bitcask" />
-      <option name="filePath" />
-      <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
@@ -192,7 +181,10 @@
       <workItem from="1779111833459" duration="600000" />
       <workItem from="1779146710260" duration="7430000" />
       <workItem from="1779223828065" duration="659000" />
-      <workItem from="1779289431179" duration="14305000" />
+      <workItem from="1779289431179" duration="15646000" />
+      <workItem from="1779388302532" duration="2242000" />
+      <workItem from="1779390876396" duration="5865000" />
+      <workItem from="1779407220225" duration="264000" />
     </task>
     <servers />
   </component>

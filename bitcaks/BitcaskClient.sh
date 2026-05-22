@@ -26,9 +26,15 @@ api_get()     { curl -sf --max-time 5 "${BASE_URL}/keys/${1}"; }
 api_put()     { curl -sf -X PUT --max-time 5 -H "Content-Type: text/plain" -d "$2" "${BASE_URL}/keys/${1}"; }
 api_compact() { curl -sf -X POST --max-time 30 "${BASE_URL}/compact"; }
 
-parse_kv() {
-    echo "$1" | grep -oP '"[^"]*"\s*:\s*"[^"]*"' \
-        | sed 's/"\(.*\)"\s*:\s*"\(.*\)"/\1\t\2/'
+json_to_csv() {
+    python3 -c "
+import sys, json, csv
+data = json.load(sys.stdin)
+writer = csv.writer(sys.stdout)
+writer.writerow(['key','value'])
+for k, v in data.items():
+    writer.writerow([k, v])
+"
 }
 
 print_help() {
@@ -93,13 +99,16 @@ while true; do
             fi
             ts=$(date +%s)
             outfile="${ts}.csv"
-            echo "key,value" > "$outfile"
+
+            echo "$json" | json_to_csv > "$outfile"
+
+            # Display to terminal
             count=0
-            while IFS=$'\t' read -r k v; do
+            while IFS=, read -r k v; do
+                [[ "$k" == "key" ]] && continue
                 printf "  ${CYAN}%-30s${R}  %s\n" "$k" "$v"
-                echo "\"${k//\"/\"\"}\",\"${v//\"/\"\"}\"" >> "$outfile"
                 (( count++ ))
-            done < <(parse_kv "$json")
+            done < "$outfile"
             echo "  ${DIM}${count} key(s) — saved to ${outfile}${R}"
             ;;
 
@@ -117,9 +126,14 @@ while true; do
                 local outfile="${ts}_thread_${tid}.csv"
                 local json
                 json=$(curl -sf --max-time 5 "${base}/keys" 2>/dev/null)
-                echo "key,value" > "$outfile"
-                echo "$json" | grep -oP '"[^"]*"\s*:\s*"[^"]*"' \
-                    | sed 's/"\(.*\)"\s*:\s*"\(.*\)"/"\1","\2"/' >> "$outfile"
+                echo "$json" | python3 -c "
+import sys, json, csv
+data = json.load(sys.stdin)
+writer = csv.writer(sys.stdout)
+writer.writerow(['key','value'])
+for k, v in data.items():
+    writer.writerow([k, v])
+" > "$outfile"
                 echo "  [thread ${tid}] → ${outfile}"
             }
             export -f worker
