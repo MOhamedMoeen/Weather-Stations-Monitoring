@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="" />
+    <list default="true" id="9884048b-9775-421d-bf80-cbd86bdd2fe5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../weather-station/src/main/java/com/weather/station/adapter/OpenMeteoAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../weather-station/src/main/java/com/weather/station/adapter/OpenMeteoAdapter.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -199,7 +202,7 @@
       <workItem from="1779456279296" duration="956000" />
       <workItem from="1779475415079" duration="3236000" />
       <workItem from="1779479522775" duration="3395000" />
-      <workItem from="1779489367557" duration="2184000" />
+      <workItem from="1779489367557" duration="4900000" />
     </task>
     <servers />
   </component>
