@@ -101,10 +101,12 @@ public class KafkaConsumers {
         Producer<String, String> invalidMessagesProducer = createInvalidMessagesProducer();
 
         Consumer<String, String> archiveConsumer = createConsumer("archiving-group", "earliest");
-        Consumer<String, String> rainAlertsConsumer = createConsumer("rain-alerts-group", "latest");
+        Consumer<String, String> rainAlertsConsumer = createConsumer("rain-alerts-group", "earliest");
+        Consumer<String, String> invalidMessageConsumer = createConsumer("invalid-messages-group", "earliest");
 
         archiveConsumer.subscribe(Collections.singletonList("weather_status"));
         rainAlertsConsumer.subscribe(Collections.singletonList("rain_alerts"));
+        invalidMessageConsumer.subscribe(Collections.singletonList("invalid-messages"));
 
         System.out.println("Subscribed to topics: weather_status, rain_alerts");
 
@@ -113,6 +115,7 @@ public class KafkaConsumers {
                 archiveConsumer.close();
                 rainAlertsConsumer.close();
                 invalidMessagesProducer.close();
+                invalidMessageConsumer.close();
                 weatherHandler.close();
                 alertsHandler.close();
                 System.out.println("Shutdown complete.");
@@ -158,12 +161,18 @@ public class KafkaConsumers {
                         invalidMessagesProducer.send(new ProducerRecord<>("invalid-messages", record.key(), record.value()));
                     }
                 }
+                // ── invalid-messages consumer ─────────────────────────────────────
+                ConsumerRecords<String, String> invalidRecords = invalidMessageConsumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, String> record : invalidRecords) {
+                    System.err.println("Invalid message: " + record.value());
+                }
             }
 
         } finally {
             archiveConsumer.close();
             rainAlertsConsumer.close();
             invalidMessagesProducer.close();
+            invalidMessageConsumer.close();
             weatherHandler.close();
             alertsHandler.close();
         }

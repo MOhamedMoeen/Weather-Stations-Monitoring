@@ -18,21 +18,26 @@ import org.elasticsearch.client.RestClient;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.StringSerializer;
 
 public class ElasticsearchIndexer {
 
     private RestClient restClient;
     private ElasticsearchClient esClient;
     private ObjectMapper mapper;
+    private Producer<String, String> invalidMessagesProducer;
 
     public ElasticsearchIndexer() {
         this.mapper = new ObjectMapper();
-
+        this.invalidMessagesProducer = createInvalidMessagesProducer();
         String esHost = System.getenv().getOrDefault("ES_HOST", "localhost");
         int esPort = Integer.parseInt(System.getenv().getOrDefault("ES_PORT", "9200"));
         this.restClient = RestClient
@@ -67,92 +72,103 @@ public class ElasticsearchIndexer {
         }
     }
 
-    public void indexParquetFile(String filePath, String indexName) {
+    public void indexWeatherRecords(List<WeatherStatus> records) {
+    try {
+        if (records.isEmpty()) {
+            System.out.println("No records to index.");
+            return;
+        }
 
-        try {
-            BulkRequest.Builder br = new BulkRequest.Builder();
-            if (indexName.equals("weather-statuses")) {
-                WeatherParquetHandler weatherParquetHandler = new WeatherParquetHandler();
-                List<WeatherStatus> records = weatherParquetHandler.readParquet(filePath);
-                if (records.isEmpty()) {
-                    System.out.println("File is empty, skipping indexing.");
-                    return;
-                }
+        BulkRequest.Builder br = new BulkRequest.Builder();
+        for (WeatherStatus status : records) {
+            br.operations(op -> op
+                    .index(idx -> idx
+                            .index("weather-statuses")
+                            .id(status.getStation_id() + "-" + status.getS_no()) // deterministic ID
+                            .document(status)));
+        }
 
-                for (WeatherStatus status : records) {
-                    br.operations(op -> op
-                            .index(idx -> idx
-                                    .index("weather-statuses")
-                                    .document(status)));
-                }
-
-                BulkResponse result = esClient.bulk(br.build());
-                if (result.errors()) {
-                    List<BulkResponseItem> items = result.items();
-                    for (int i = 0; i < items.size(); i++) {
-                        BulkResponseItem item = items.get(i);
-                        if (item.error() != null) {
-                            WeatherStatus failedRecord = records.get(i);
-                            String errorReason = item.error().reason();
-                            String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}\n",
-                                    errorReason, mapper.writeValueAsString(failedRecord));
-                            Files.write(Paths.get("es-invalid-messages.log"),
-                                    logEntry.getBytes(),
-                                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-                        }
-                    }
-                } else {
-                    System.out.println("Successfully indexed records from " + filePath);
-                }
-            } else if (indexName.equals("rain-alerts")) {
-                AlertsParquetHandler alertsParquetHandler = new AlertsParquetHandler();
-                List<GenericRecord> records = alertsParquetHandler.readParquet(filePath);
-                if (records.isEmpty()) {
-                    System.out.println("File is empty, skipping indexing.");
-                    return;
-                }
-
-                for (GenericRecord record : records) {
-                    Map<String, Object> doc = mapper.readValue(record.toString(), Map.class);
-                    br.operations(op -> op
-                            .index(idx -> idx
-                                    .index("rain-alerts")
-                                    .document(doc)));
-                }
-
-                BulkResponse result = esClient.bulk(br.build());
-                if (result.errors()) {
-                    List<BulkResponseItem> items = result.items();
-                    for (int i = 0; i < items.size(); i++) {
-                        BulkResponseItem item = items.get(i);
-                        if (item.error() != null) {
-                            GenericRecord failedRecord = records.get(i);
-                            String errorReason = item.error().reason();
-                            String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}\n",
-                                    errorReason, failedRecord.toString());
-                            Files.write(Paths.get("es-invalid-messages.log"),
-                                    logEntry.getBytes(),
-                                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-                        }
-                    }
-                } else {
-                    System.out.println("Successfully indexed records from " + filePath);
+        BulkResponse result = esClient.bulk(br.build());
+        if (result.errors()) {
+            List<BulkResponseItem> items = result.items();
+            for (int i = 0; i < items.size(); i++) {
+                BulkResponseItem item = items.get(i);
+                if (item.error() != null) {
+                    WeatherStatus failedRecord = records.get(i);
+                    String errorReason = item.error().reason();
+                    String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}",
+                            errorReason, mapper.writeValueAsString(failedRecord));
+                    invalidMessagesProducer.send(new ProducerRecord<>("invalid-messages",
+                            failedRecord.getStation_id() + "-" + failedRecord.getS_no(),
+                            logEntry));
                 }
             }
-
-        } catch (Exception e) {
-            System.err.println("Failed to index Parquet file: " + filePath);
-            e.printStackTrace();
+        } else {
+            System.out.println("Successfully indexed " + records.size() + " records.");
         }
+    } catch (Exception e) {
+        System.err.println("Failed to bulk index weather records.");
+        e.printStackTrace();
     }
+}
+
+public void indexAlertRecords(List<GenericRecord> records) {
+    try {
+        if (records.isEmpty()) {
+            System.out.println("No records to index.");
+            return;
+        }
+
+        BulkRequest.Builder br = new BulkRequest.Builder();
+        for (GenericRecord record : records) {
+            Map<String, Object> doc = mapper.readValue(record.toString(), Map.class);
+            br.operations(op -> op
+                    .index(idx -> idx
+                            .index("rain-alerts")
+                            .id(doc.get("station_id") + "-" + doc.get("s_no")) // deterministic ID
+                            .document(doc)));
+        }
+
+        BulkResponse result = esClient.bulk(br.build());
+        if (result.errors()) {
+            List<BulkResponseItem> items = result.items();
+            for (int i = 0; i < items.size(); i++) {
+                BulkResponseItem item = items.get(i);
+                if (item.error() != null) {
+                    GenericRecord failedRecord = records.get(i);
+                    String errorReason = item.error().reason();
+                    String logEntry = String.format("{\"error\": \"%s\", \"record\": %s}",
+                            errorReason, failedRecord.toString());
+                    invalidMessagesProducer.send(new ProducerRecord<>("invalid-messages",
+                            failedRecord.get("station_id").toString(),
+                            logEntry));
+                }
+            }
+        } else {
+            System.out.println("Successfully indexed " + records.size() + " alert records.");
+        }
+    } catch (Exception e) {
+        System.err.println("Failed to bulk index alert records.");
+        e.printStackTrace();
+    }
+}
 
     public void close() {
         try {
             if (restClient != null) {
                 restClient.close();
+                invalidMessagesProducer.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+     private Producer<String, String> createInvalidMessagesProducer() {
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                System.getenv().getOrDefault("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092"));
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        return new KafkaProducer<>(props);
     }
 }

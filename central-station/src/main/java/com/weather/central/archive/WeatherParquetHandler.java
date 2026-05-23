@@ -95,23 +95,21 @@ public class WeatherParquetHandler {
         if (batch.isEmpty())
             return;
 
-        // Snapshot and clear the batch FIRST so a write failure doesn't
-        // leave the batch permanently full and block all future archiving.
         List<WeatherStatus> toFlush = new ArrayList<>(batch);
         batch.clear();
 
-        // Grouping records
         Map<String, List<WeatherStatus>> grouped = groupByStationAndDate(toFlush);
 
+        // Write all files first
         for (Map.Entry<String, List<WeatherStatus>> entry : grouped.entrySet()) {
             String dirPath = entry.getKey();
             String fileName = "data_" + System.currentTimeMillis() + ".parquet";
             String fullPath = dirPath + "/" + fileName;
             writeBatch(entry.getValue(), fullPath);
-
-            // Trigger Elasticsearch indexing for the newly created file!
-            esIndexer.indexParquetFile(fullPath, "weather-statuses");
         }
+
+        // ONE bulk call for ALL files in this flush
+        esIndexer.indexWeatherRecords(toFlush);
     }
 
     // Write a batch of records to its parquet file
