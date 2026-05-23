@@ -3,7 +3,8 @@ package com.weather.station.adapter;
 import com.google.gson.Gson;
 import com.weather.station.model.WeatherData;
 import com.weather.station.model.WeatherMessage;
-
+import org.apache.kafka.clients.producer.Producer;
+import com.weather.station.WeatherStationProducer;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -13,9 +14,9 @@ public class OpenMeteoAdapter {
 
     // Alexandria coordinates
     private static final String API_URL =
-        "https://api.open-meteo.com/v1/forecast" +
-        "?latitude=31.2&longitude=29.9" +
-        "&current=temperature_2m,relative_humidity_2m,wind_speed_10m";
+            "https://api.open-meteo.com/v1/forecast" +
+                    "?latitude=31.2&longitude=29.9" +
+                    "&current=temperature_2m,relative_humidity_2m,wind_speed_10m";
 
     private static final long STATION_ID = 0L; // external source, not a mock station
 
@@ -58,9 +59,13 @@ public class OpenMeteoAdapter {
                         System.currentTimeMillis() / 1000,
                         weather
                 );
-
-                // 4. Print to console (will be replaced by Kafka send in Part F)
-                System.out.println(gson.toJson(message));
+                WeatherStationProducer producer = new WeatherStationProducer(
+                        System.getenv().getOrDefault("KAFKA_BOOTSTRAP_SERVERS", "127.0.0.1:9092"),
+                        "weather_status"
+                );
+                String json = gson.toJson(message);
+                producer.sendData(String.valueOf(STATION_ID), json);
+                System.out.println(json);
 
             } catch (Exception e) {
                 System.err.println("[OpenMeteoAdapter] Error fetching data: " + e.getMessage());
