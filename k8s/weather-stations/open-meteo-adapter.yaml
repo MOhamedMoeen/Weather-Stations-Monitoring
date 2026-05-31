@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-meteo-adapter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: open-meteo-adapter
+  template:
+    metadata:
+      labels:
+        app: open-meteo-adapter
+    spec:
+      containers:
+        - name: open-meteo-adapter
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "0"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
