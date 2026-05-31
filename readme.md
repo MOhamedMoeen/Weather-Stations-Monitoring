@@ -15,17 +15,8 @@ A distributed weather monitoring system built for high-throughput IoT data strea
  
 ## Architecture
  
-The system is composed of three stages:
- 
-```
-Data Acquisition          Data Processing & Archiving       Indexing
-─────────────────         ───────────────────────────       ────────────────
-Weather Stations 1-10  →  Kafka  →  Central Station  →  BitCask (latest state)
-Open-Meteo Adapter                       │             →  ElasticSearch / Kibana
-                                         ↓                  (historical data)
-                                   Parquet Files
-```
- 
+![Architecture Diagram](images/architecture.png)
+
 **Components:**
 - **Weather Stations (x10)** — mock IoT devices emitting weather readings every second to Kafka
 - **Open-Meteo Adapter** — fetches real weather data from the Open-Meteo API and feeds it to Kafka
