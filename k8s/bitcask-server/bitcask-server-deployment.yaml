@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitcask-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bitcask-server
+  template:
+    metadata:
+      labels:
+        app: bitcask-server
+    spec:
+      containers:
+        - name: bitcask-server
+          image: localhost:5000/bitcask-server:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: bitcask-storage
+              mountPath: /app/bitcask-data
+      volumes:
+        - name: bitcask-storage
+          persistentVolumeClaim:
+            claimName: bitcask-data-pvc

@@ -1,0 +1,314 @@
+# ─── WEATHER STATIONS ────────────────────────────────────────────────────────
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-1
+  template:
+    metadata:
+      labels:
+        app: weather-station-1
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "1"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-2
+  template:
+    metadata:
+      labels:
+        app: weather-station-2
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "2"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-3
+  template:
+    metadata:
+      labels:
+        app: weather-station-3
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "3"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rain-trigger-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rain-trigger-processor
+  template:
+    metadata:
+      labels:
+        app: rain-trigger-processor
+    spec:
+      containers:
+        - name: rain-trigger-processor
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          command:
+            [
+              "java",
+              "-cp",
+              "app.jar",
+              "com.weather.station.RainTriggerProcessor",
+            ]
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-4
+  template:
+    metadata:
+      labels:
+        app: weather-station-4
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "4"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+        - name: rain-trigger-processor
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "4"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+            - name: PROCESSOR_TYPE
+              value: "rain-trigger"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-5
+  template:
+    metadata:
+      labels:
+        app: weather-station-5
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "5"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-6
+  template:
+    metadata:
+      labels:
+        app: weather-station-6
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "6"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-7
+  template:
+    metadata:
+      labels:
+        app: weather-station-7
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "7"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-8
+  template:
+    metadata:
+      labels:
+        app: weather-station-8
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "8"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-9
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-9
+  template:
+    metadata:
+      labels:
+        app: weather-station-9
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "9"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-station-10
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-station-10
+  template:
+    metadata:
+      labels:
+        app: weather-station-10
+    spec:
+      containers:
+        - name: weather-station
+          image: localhost:5000/weather-station:latest
+          imagePullPolicy: Always
+          env:
+            - name: STATION_ID
+              value: "10"
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka-service:9092"
+            - name: KAFKA_TOPIC
+              value: "weather_status"
+
